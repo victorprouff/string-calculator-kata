@@ -7,10 +7,12 @@ namespace StringCalculatorKata;
 public class StringCalculator
 {
     private readonly Ilogger _logger;
+    private readonly IWebservice _webservice;
 
-    public StringCalculator(Ilogger logger)
+    public StringCalculator(Ilogger logger, IWebservice webservice)
     {
         _logger = logger;
+        _webservice = webservice;
     }
 
     private const int HeadSize = 4;

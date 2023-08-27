@@ -12,36 +12,45 @@ public class StringCalculatorTest
     public void Return0WhenStringEmpty()
     {
         var logger = new Mock<Ilogger>();
-        var stringCalculator = new StringCalculator(logger.Object);
+        var webService = new Mock<IWebservice>();
+
+        var stringCalculator = new StringCalculator(logger.Object, webService.Object);
 
         var result = stringCalculator.Add("");
 
         result.Should().Be(0);
         logger.Verify(e => e.Write("0"), Times.Once);
+        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
     }
 
     [Fact]
     public void Return5WhenStringValue5()
     {
         var logger = new Mock<Ilogger>();
-        var stringCalculator = new StringCalculator(logger.Object);
+        var webService = new Mock<IWebservice>();
+
+        var stringCalculator = new StringCalculator(logger.Object, webService.Object);
 
         var result = stringCalculator.Add("5");
 
         result.Should().Be(5);
         logger.Verify(e => e.Write("5"), Times.Once);
+        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
     }
 
     [Fact]
     public void ReturnSumWhenStringContain2Value()
     {
         var logger = new Mock<Ilogger>();
-        var stringCalculator = new StringCalculator(logger.Object);
+        var webService = new Mock<IWebservice>();
+
+        var stringCalculator = new StringCalculator(logger.Object, webService.Object);
 
         var result = stringCalculator.Add("5,2");
 
         result.Should().Be(7);
         logger.Verify(e => e.Write("7"), Times.Once);
+        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
     }
 
     [Theory]
@@ -51,24 +60,30 @@ public class StringCalculatorTest
     public void ReturnSumWhenStringContainUnknownAmountOfNumbers(string numbers, int expectedResult)
     {
         var logger = new Mock<Ilogger>();
-        var stringCalculator = new StringCalculator(logger.Object);
+        var webService = new Mock<IWebservice>();
+
+        var stringCalculator = new StringCalculator(logger.Object, webService.Object);
 
         var result = stringCalculator.Add(numbers);
 
         result.Should().Be(expectedResult);
         logger.Verify(e => e.Write(expectedResult.ToString()), Times.Once);
+        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
     }
 
     [Fact]
     public void ReturnSumWhenStringContainValuesWithLnSeparator()
     {
         var logger = new Mock<Ilogger>();
-        var stringCalculator = new StringCalculator(logger.Object);
+        var webService = new Mock<IWebservice>();
+
+        var stringCalculator = new StringCalculator(logger.Object, webService.Object);
 
         var result = stringCalculator.Add("1\n2,3");
 
         result.Should().Be(6);
         logger.Verify(e => e.Write("6"), Times.Once);
+        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
     }
 
     [Theory]
@@ -78,12 +93,15 @@ public class StringCalculatorTest
     public void ReturnSumWhenStringContainDifferentDelimiters(string numbers, int expectedResult)
     {
         var logger = new Mock<Ilogger>();
-        var stringCalculator = new StringCalculator(logger.Object);
+        var webService = new Mock<IWebservice>();
+
+        var stringCalculator = new StringCalculator(logger.Object, webService.Object);
 
         var result = stringCalculator.Add(numbers);
 
         result.Should().Be(expectedResult);
         logger.Verify(e => e.Write(expectedResult.ToString()), Times.Once);
+        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
     }
 
     [Theory]
@@ -93,11 +111,14 @@ public class StringCalculatorTest
     public void ThrowExeptionWhenNegativeValueDetected(string numbers, string expectedMessageException)
     {
         var logger = new Mock<Ilogger>();
-        var stringCalculator = new StringCalculator(logger.Object);
+        var webService = new Mock<IWebservice>();
+
+        var stringCalculator = new StringCalculator(logger.Object, webService.Object);
 
         var exception = ()  => stringCalculator.Add(numbers);
 
         exception.Should().Throw<Exception>().WithMessage(expectedMessageException);
+        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
     }
 
     [Theory]
@@ -107,11 +128,14 @@ public class StringCalculatorTest
     public void ReturnSumButIgnoreNumbersBiggerThan1000(string numbers, int expectedResult)
     {
         var logger = new Mock<Ilogger>();
-        var stringCalculator = new StringCalculator(logger.Object);
+        var webService = new Mock<IWebservice>();
+
+        var stringCalculator = new StringCalculator(logger.Object, webService.Object);
 
         var result = stringCalculator.Add(numbers);
 
         result.Should().Be(expectedResult);
         logger.Verify(e => e.Write(expectedResult.ToString()), Times.Once);
+        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
     }
 }
