@@ -6,8 +6,10 @@ namespace StringCalculatorKata.Tests;
 public class StringCalculatorTest
 {
     [Fact]
-    public void ExampleTest()
+    public void Return0WhenStringEmpty()
     {
-        true.Should().Be(false);
+        var result = StringCalculator.Add("");
+
+        result.Should().Be(0);
     }
 }
