@@ -20,25 +20,29 @@ public class StringCalculator
     {
         if (string.IsNullOrWhiteSpace(completeString))
         {
-            _logger.Write("0");
-            return 0;
+            return LogResultBeforeToReturn(0);
         }
 
         if (completeString.StartsWith("//"))
         {
-            var sum = Sum(RemoveHeader(completeString), new[] { GetSpecialDelimitor(completeString) });
-            _logger.Write(sum.ToString());
-            return sum;
+            return LogResultBeforeToReturn(
+                Sum(
+                    RemoveHeader(completeString),
+                    GetSpecialDelimitor(completeString)));
         }
 
-        var result = Sum(completeString, DefaultSeparators);
+        return LogResultBeforeToReturn(Sum(completeString, DefaultSeparators));
+    }
+
+    private int LogResultBeforeToReturn(int result)
+    {
         _logger.Write(result.ToString());
         return result;
     }
 
     private static string RemoveHeader(string numbers) => numbers.Substring(HeadSize);
 
-    private static char GetSpecialDelimitor(string numbers) => Convert.ToChar(numbers.Substring(2, 1));
+    private static char[] GetSpecialDelimitor(string numbers) => new[] { Convert.ToChar(numbers.Substring(2, 1)) };
 
     private static int Sum(string completeString, char[] separators)
     {
