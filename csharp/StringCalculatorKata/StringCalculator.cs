@@ -18,7 +18,7 @@ public static class StringCalculator
 
         if (completeString.StartsWith("//"))
         {
-            return Sum(RemoveHeader(completeString),new[] { GetSpecialDelimitor(completeString) });
+            return Sum(RemoveHeader(completeString), new[] { GetSpecialDelimitor(completeString) });
         }
 
         return Sum(completeString, DefaultSeparators);
@@ -40,10 +40,13 @@ public static class StringCalculator
             {
                 exeptedValue.Add(number);
             }
-            else
+
+            if (number > 1000)
             {
-                result += number;
+                continue;
             }
+
+            result += number;
         }
 
         ThrowIfNegativeValueDetected(exeptedValue);

@@ -70,4 +70,15 @@ public class StringCalculatorTest
 
         exception.Should().Throw<Exception>().WithMessage(expectedMessageException);
     }
+
+    [Theory]
+    [InlineData("1001,2", 2)]
+    [InlineData("//:\n4000:2:5", 7)]
+    [InlineData("10,1001,2,3,4,1400", 19)]
+    public void ReturnSumButIgnoreNumbersBiggerThan1000(string numbers, int expectedResult)
+    {
+        var result = StringCalculator.Add(numbers);
+
+        result.Should().Be(expectedResult);
+    }
 }
