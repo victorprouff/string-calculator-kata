@@ -47,4 +47,15 @@ public class StringCalculatorTest
 
         result.Should().Be(6);
     }
+
+    [Theory]
+    [InlineData("//;\n1;2", 3)]
+    [InlineData("//:\n4:2:5", 11)]
+    [InlineData("//$\n4$9$7$2", 22)]
+    public void ReturnSumWhenStringContainDifferentDelimiters(string numbers, int expectedResult)
+    {
+        var result = StringCalculator.Add(numbers);
+
+        result.Should().Be(expectedResult);
+    }
 }
