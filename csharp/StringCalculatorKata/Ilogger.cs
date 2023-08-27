@@ -6,5 +6,5 @@ public interface Ilogger
 {
     public void Write(string message);
 
-    public IList<string> GetMessages();
+    public string GetMessage();
 }

@@ -20,15 +20,20 @@ public class StringCalculator
     {
         if (string.IsNullOrWhiteSpace(completeString))
         {
+            _logger.Write("0");
             return 0;
         }
 
         if (completeString.StartsWith("//"))
         {
-            return Sum(RemoveHeader(completeString), new[] { GetSpecialDelimitor(completeString) });
+            var sum = Sum(RemoveHeader(completeString), new[] { GetSpecialDelimitor(completeString) });
+            _logger.Write(sum.ToString());
+            return sum;
         }
 
-        return Sum(completeString, DefaultSeparators);
+        var result = Sum(completeString, DefaultSeparators);
+        _logger.Write(result.ToString());
+        return result;
     }
 
     private static string RemoveHeader(string numbers) => numbers.Substring(HeadSize);
