@@ -49,18 +49,14 @@ public class StringCalculator
     {
         var exeptedValue = new List<int>();
         var result = 0;
-        foreach (var numberString in completeString.Split(separators))
-        {
-            var number = Convert.ToInt32(numberString);
 
+        var numbers = ConvertToIntList(completeString, separators);
+
+        foreach (var number in numbers)
+        {
             if (number < 0)
             {
                 exeptedValue.Add(number);
-            }
-
-            if (number > MaximumValue)
-            {
-                continue;
             }
 
             result += number;
@@ -70,6 +66,11 @@ public class StringCalculator
 
         return result;
     }
+
+    private static IEnumerable<int> ConvertToIntList(string completeString, char[] separators) =>
+        completeString.Split(separators)
+            .Select(v => Convert.ToInt32(v))
+            .Where(v => v >= MaximumValue);
 
     private static void ThrowIfNegativeValueDetected(IReadOnlyCollection<int> exeptedValue)
     {
