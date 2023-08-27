@@ -28,4 +28,15 @@ public class StringCalculatorTest
 
         result.Should().Be(7);
     }
+
+    [Theory]
+    [InlineData("1,2", 3)]
+    [InlineData("1,2,3,4", 10)]
+    [InlineData("10,1,2,3,4,14", 34)]
+    public void ReturnSumWhenStringContainUnknownAmountOfNumbers(string numbers, int expectedResult)
+    {
+        var result = StringCalculator.Add(numbers);
+
+        result.Should().Be(expectedResult);
+    }
 }

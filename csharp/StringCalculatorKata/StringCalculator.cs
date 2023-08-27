@@ -5,14 +5,14 @@ namespace StringCalculatorKata;
 
 public static class StringCalculator
 {
-    public static int Add(string numbersString)
+    public static int Add(string numbers)
     {
-        if (string.IsNullOrWhiteSpace(numbersString))
+        if (string.IsNullOrWhiteSpace(numbers))
         {
             return 0;
         }
 
-        return numbersString.Split(',')
+        return numbers.Split(',')
             .Sum(number => Convert.ToInt32(number));
     }
 }
