@@ -20,4 +20,12 @@ public class StringCalculatorTest
 
         result.Should().Be(5);
     }
+
+    [Fact]
+    public void ReturnSumWhenStringContain2Value()
+    {
+        var result = StringCalculator.Add("5,2");
+
+        result.Should().Be(7);
+    }
 }
