@@ -39,4 +39,12 @@ public class StringCalculatorTest
 
         result.Should().Be(expectedResult);
     }
+
+    [Fact]
+    public void ReturnSumWhenStringContainValuesWithLnSeparator()
+    {
+        var result = StringCalculator.Add("1\n2,3");
+
+        result.Should().Be(6);
+    }
 }

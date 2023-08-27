@@ -12,7 +12,7 @@ public static class StringCalculator
             return 0;
         }
 
-        return numbers.Split(',')
+        return numbers.Split(',', '\n')
             .Sum(number => Convert.ToInt32(number));
     }
 }
