@@ -5,6 +5,8 @@ namespace StringCalculatorKata;
 
 public static class StringCalculator
 {
+    private const int HeadSize = 4;
+
     public static int Add(string completeString)
     {
         if (string.IsNullOrWhiteSpace(completeString))
@@ -16,16 +18,14 @@ public static class StringCalculator
         {
             var separator = Convert.ToChar(completeString.Substring(2, 1));
 
-            var numbers = completeString.Substring(4);
-            var result = 0;
-            foreach (var number in numbers.Split(',', '\n', separator))
-            {
-                result += Convert.ToInt32(number);
-            }
-
-            return result;
+            return Sum(completeString.Substring(HeadSize), new[] { separator });
         }
 
-        return completeString.Split(',', '\n').Sum(number => Convert.ToInt32(number));
+        return Sum(completeString, new[] { ',', '\n' });
+    }
+
+    private static int Sum(string completeString, char[] separators)
+    {
+        return completeString.Split(separators).Sum(number => Convert.ToInt32(number));
     }
 }
