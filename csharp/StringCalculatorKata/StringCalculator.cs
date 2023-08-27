@@ -70,7 +70,7 @@ public class StringCalculator
     private static IEnumerable<int> ConvertToIntList(string completeString, char[] separators) =>
         completeString.Split(separators)
             .Select(v => Convert.ToInt32(v))
-            .Where(v => v >= MaximumValue);
+            .Where(v => v <= MaximumValue);
 
     private static void ThrowIfNegativeValueDetected(IReadOnlyCollection<int> exeptedValue)
     {
