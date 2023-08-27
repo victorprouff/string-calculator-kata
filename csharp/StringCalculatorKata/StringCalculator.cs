@@ -11,6 +11,6 @@ public static class StringCalculator
             return 0;
         }
 
-        throw new NotImplementedException();
+        return Convert.ToInt32(numbers);
     }
 }

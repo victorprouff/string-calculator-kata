@@ -12,4 +12,12 @@ public class StringCalculatorTest
 
         result.Should().Be(0);
     }
+
+    [Fact]
+    public void Return5WhenStringValue5()
+    {
+        var result = StringCalculator.Add("5");
+
+        result.Should().Be(5);
+    }
 }
