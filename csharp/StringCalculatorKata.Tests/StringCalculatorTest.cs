@@ -9,7 +9,9 @@ public class StringCalculatorTest
     [Fact]
     public void Return0WhenStringEmpty()
     {
-        var result = StringCalculator.Add("");
+        var stringCalculator = new StringCalculator(new Logger());
+
+        var result = stringCalculator.Add("");
 
         result.Should().Be(0);
     }
@@ -17,7 +19,9 @@ public class StringCalculatorTest
     [Fact]
     public void Return5WhenStringValue5()
     {
-        var result = StringCalculator.Add("5");
+        var stringCalculator = new StringCalculator(new Logger());
+
+        var result = stringCalculator.Add("5");
 
         result.Should().Be(5);
     }
@@ -25,7 +29,9 @@ public class StringCalculatorTest
     [Fact]
     public void ReturnSumWhenStringContain2Value()
     {
-        var result = StringCalculator.Add("5,2");
+        var stringCalculator = new StringCalculator(new Logger());
+
+        var result = stringCalculator.Add("5,2");
 
         result.Should().Be(7);
     }
@@ -36,7 +42,9 @@ public class StringCalculatorTest
     [InlineData("10,1,2,3,4,14", 34)]
     public void ReturnSumWhenStringContainUnknownAmountOfNumbers(string numbers, int expectedResult)
     {
-        var result = StringCalculator.Add(numbers);
+        var stringCalculator = new StringCalculator(new Logger());
+
+        var result = stringCalculator.Add(numbers);
 
         result.Should().Be(expectedResult);
     }
@@ -44,7 +52,9 @@ public class StringCalculatorTest
     [Fact]
     public void ReturnSumWhenStringContainValuesWithLnSeparator()
     {
-        var result = StringCalculator.Add("1\n2,3");
+        var stringCalculator = new StringCalculator(new Logger());
+
+        var result = stringCalculator.Add("1\n2,3");
 
         result.Should().Be(6);
     }
@@ -55,7 +65,9 @@ public class StringCalculatorTest
     [InlineData("//$\n4$9$7$2", 22)]
     public void ReturnSumWhenStringContainDifferentDelimiters(string numbers, int expectedResult)
     {
-        var result = StringCalculator.Add(numbers);
+        var stringCalculator = new StringCalculator(new Logger());
+
+        var result = stringCalculator.Add(numbers);
 
         result.Should().Be(expectedResult);
     }
@@ -66,7 +78,9 @@ public class StringCalculatorTest
     [InlineData("//$\n4$-9$7$-2", "negatives not allowed: -9, -2")]
     public void ThrowExeptionWhenNegativeValueDetected(string numbers, string expectedMessageException)
     {
-        var exception = ()  => StringCalculator.Add(numbers);
+        var stringCalculator = new StringCalculator(new Logger());
+
+        var exception = ()  => stringCalculator.Add(numbers);
 
         exception.Should().Throw<Exception>().WithMessage(expectedMessageException);
     }
@@ -77,7 +91,9 @@ public class StringCalculatorTest
     [InlineData("10,1001,2,3,4,1400", 19)]
     public void ReturnSumButIgnoreNumbersBiggerThan1000(string numbers, int expectedResult)
     {
-        var result = StringCalculator.Add(numbers);
+        var stringCalculator = new StringCalculator(new Logger());
+
+        var result = stringCalculator.Add(numbers);
 
         result.Should().Be(expectedResult);
     }

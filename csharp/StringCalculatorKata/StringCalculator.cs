@@ -4,12 +4,19 @@ using System.Linq;
 
 namespace StringCalculatorKata;
 
-public static class StringCalculator
+public class StringCalculator
 {
+    private readonly Ilogger _logger;
+
+    public StringCalculator(Ilogger logger)
+    {
+        _logger = logger;
+    }
+
     private const int HeadSize = 4;
     private static readonly char[] DefaultSeparators = { ',', '\n' };
 
-    public static int Add(string completeString)
+    public int Add(string completeString)
     {
         if (string.IsNullOrWhiteSpace(completeString))
         {
