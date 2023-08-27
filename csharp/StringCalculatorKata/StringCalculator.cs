@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace StringCalculatorKata;
 
@@ -11,12 +12,7 @@ public static class StringCalculator
             return 0;
         }
 
-        var response = 0;
-        foreach (var number in numbersString.Split(','))
-        {
-            response += Convert.ToInt32(number);
-        }
-
-        return response;
+        return numbersString.Split(',')
+            .Sum(number => Convert.ToInt32(number));
     }
 }
