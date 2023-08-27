@@ -118,7 +118,7 @@ public class StringCalculatorTest
         var exception = ()  => stringCalculator.Add(numbers);
 
         exception.Should().Throw<Exception>().WithMessage(expectedMessageException);
-        webService.Verify(e => e.Notify(It.IsAny<string>()), Times.Never);
+        webService.Verify(e => e.Notify(expectedMessageException), Times.Once);
     }
 
     [Theory]

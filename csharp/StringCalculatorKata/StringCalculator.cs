@@ -47,7 +47,7 @@ public class StringCalculator
 
     private static char[] GetSpecialDelimitor(string numbers) => new[] { Convert.ToChar(numbers.Substring(2, 1)) };
 
-    private static int Sum(string completeString, char[] separators)
+    private int Sum(string completeString, char[] separators)
     {
         var numbers = ConvertToIntList(completeString, separators).ToArray();
         var negativeValue = GetNegativeValues(numbers);
@@ -64,11 +64,14 @@ public class StringCalculator
             .Select(v => Convert.ToInt32(v))
             .Where(v => v <= MaximumValue);
 
-    private static void ThrowIfNegativeValueDetected(IEnumerable<int> negativeValue)
+    private void ThrowIfNegativeValueDetected(IEnumerable<int> negativeValue)
     {
         if (negativeValue.Any())
         {
-            throw new Exception($"negatives not allowed: {string.Join(", ", negativeValue)}");
+            var message = $"negatives not allowed: {string.Join(", ", negativeValue)}";
+            _webservice.Notify(message);
+
+            throw new Exception(message);
         }
     }
 }
