@@ -14,6 +14,7 @@ public class StringCalculator
     }
 
     private const int HeadSize = 4;
+    private const int MaximumValue = 1000;
     private static readonly char[] DefaultSeparators = { ',', '\n' };
 
     public int Add(string completeString)
@@ -57,7 +58,7 @@ public class StringCalculator
                 exeptedValue.Add(number);
             }
 
-            if (number > 1000)
+            if (number > MaximumValue)
             {
                 continue;
             }
