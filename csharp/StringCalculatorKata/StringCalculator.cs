@@ -1,12 +1,11 @@
 using System;
 
-namespace StringCalculatorKata
+namespace StringCalculatorKata;
+
+public static class StringCalculator
 {
-    public static class StringCalculator
+    public static int Add(string numbers)
     {
-        public static int Add(string numbers)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
 }

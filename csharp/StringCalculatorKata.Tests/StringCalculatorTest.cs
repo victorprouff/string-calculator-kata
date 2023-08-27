@@ -1,14 +1,13 @@
 using FluentAssertions;
 using Xunit;
 
-namespace StringCalculatorKata.Tests
+namespace StringCalculatorKata.Tests;
+
+public class StringCalculatorTest
 {
-    public class StringCalculatorTest
+    [Fact]
+    public void ExampleTest()
     {
-        [Fact]
-        public void ExampleTest()
-        {
-            true.Should().Be(false);
-        }
+        true.Should().Be(false);
     }
 }
