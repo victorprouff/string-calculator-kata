@@ -47,36 +47,26 @@ public class StringCalculator
 
     private static int Sum(string completeString, char[] separators)
     {
-        var exeptedValue = new List<int>();
-        var result = 0;
+        var numbers = ConvertToIntList(completeString, separators).ToArray();
+        var negativeValue = GetNegativeValues(numbers);
 
-        var numbers = ConvertToIntList(completeString, separators);
+        ThrowIfNegativeValueDetected(negativeValue);
 
-        foreach (var number in numbers)
-        {
-            if (number < 0)
-            {
-                exeptedValue.Add(number);
-            }
-
-            result += number;
-        }
-
-        ThrowIfNegativeValueDetected(exeptedValue);
-
-        return result;
+        return numbers.Sum();
     }
+
+    private static IEnumerable<int> GetNegativeValues(IEnumerable<int> numbers) =>numbers.Where(v => v < 0);
 
     private static IEnumerable<int> ConvertToIntList(string completeString, char[] separators) =>
         completeString.Split(separators)
             .Select(v => Convert.ToInt32(v))
             .Where(v => v <= MaximumValue);
 
-    private static void ThrowIfNegativeValueDetected(IReadOnlyCollection<int> exeptedValue)
+    private static void ThrowIfNegativeValueDetected(IEnumerable<int> negativeValue)
     {
-        if (exeptedValue.Any())
+        if (negativeValue.Any())
         {
-            throw new Exception($"negatives not allowed: {string.Join(", ", exeptedValue)}");
+            throw new Exception($"negatives not allowed: {string.Join(", ", negativeValue)}");
         }
     }
 }
