@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using Xunit;
 
@@ -57,5 +58,16 @@ public class StringCalculatorTest
         var result = StringCalculator.Add(numbers);
 
         result.Should().Be(expectedResult);
+    }
+
+    [Theory]
+    [InlineData("//;\n1;-2", "negatives not allowed: -2")]
+    [InlineData("//:\n-4:2:-5", "negatives not allowed: -4, -5")]
+    [InlineData("//$\n4$-9$7$-2", "negatives not allowed: -9, -2")]
+    public void ThrowExeptionWhenNegativeValueDetected(string numbers, string expectedMessageException)
+    {
+        var exception = ()  => StringCalculator.Add(numbers);
+
+        exception.Should().Throw<Exception>().WithMessage(expectedMessageException);
     }
 }

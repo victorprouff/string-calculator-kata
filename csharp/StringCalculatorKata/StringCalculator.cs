@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace StringCalculatorKata;
@@ -26,6 +27,25 @@ public static class StringCalculator
 
     private static int Sum(string completeString, char[] separators)
     {
-        return completeString.Split(separators).Sum(number => Convert.ToInt32(number));
+        var exeptedValue = new List<int>();
+        var result = 0;
+        foreach (var numberString in completeString.Split(separators))
+        {
+            var number = Convert.ToInt32(numberString);
+
+            if (number < 0)
+            {
+                exeptedValue.Add(number);
+            }
+
+            result += number;
+        }
+
+        if (exeptedValue.Any())
+        {
+            throw new Exception($"negatives not allowed: {string.Join(", ", exeptedValue)}");
+        }
+
+        return result;
     }
 }
