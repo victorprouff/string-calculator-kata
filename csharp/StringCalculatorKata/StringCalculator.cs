@@ -7,6 +7,7 @@ namespace StringCalculatorKata;
 public static class StringCalculator
 {
     private const int HeadSize = 4;
+    private static readonly char[] DefaultSeparators = { ',', '\n' };
 
     public static int Add(string completeString)
     {
@@ -17,13 +18,15 @@ public static class StringCalculator
 
         if (completeString.StartsWith("//"))
         {
-            var separator = Convert.ToChar(completeString.Substring(2, 1));
-
-            return Sum(completeString.Substring(HeadSize), new[] { separator });
+            return Sum(RemoveHeader(completeString),new[] { GetSpecialDelimitor(completeString) });
         }
 
-        return Sum(completeString, new[] { ',', '\n' });
+        return Sum(completeString, DefaultSeparators);
     }
+
+    private static string RemoveHeader(string numbers) => numbers.Substring(HeadSize);
+
+    private static char GetSpecialDelimitor(string numbers) => Convert.ToChar(numbers.Substring(2, 1));
 
     private static int Sum(string completeString, char[] separators)
     {
@@ -37,15 +40,22 @@ public static class StringCalculator
             {
                 exeptedValue.Add(number);
             }
-
-            result += number;
+            else
+            {
+                result += number;
+            }
         }
 
+        ThrowIfNegativeValueDetected(exeptedValue);
+
+        return result;
+    }
+
+    private static void ThrowIfNegativeValueDetected(IReadOnlyCollection<int> exeptedValue)
+    {
         if (exeptedValue.Any())
         {
             throw new Exception($"negatives not allowed: {string.Join(", ", exeptedValue)}");
         }
-
-        return result;
     }
 }
